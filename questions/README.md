@@ -190,3 +190,103 @@ Common issues:
    - Pre-rendering: HTML is generated at build time, static, fast (e.g., nuxt generate)
    - SSR (Server-Side Rendering): HTML is generated at request time, dynamic (e.g., nuxtServerInit)
    - Tradeoff: Pre-render = speed, SSR = flexibility/dynamic content
+
+
+# Website Security Best Practises
+1. HTTPS Everywhere → Use TLS (HTTPS) to encrypt all data in transit. Enforce with HSTS headers to prevent downgrade attacks.
+
+2. Input Validation & Output Encoding → Sanitize all user inputs on the server side. Use output encoding to prevent cross-site scripting (XSS).
+
+3. Authentication & Authorization → Hash passwords with bcrypt or argon2. Enforce MFA. Apply least privilege and role-based access control (RBAC).
+
+4. Secure Sessions → Use HttpOnly, Secure, and SameSite cookies. Rotate session IDs on login. Implement session timeouts.
+
+5. SQL Injection Prevention → Use parameterized queries or ORM-safe methods. Never concatenate user inputs into SQL.
+
+6. Security Headers & CSP → Implement Content Security Policy (CSP). Set headers like X-Frame-Options, X-Content-Type-Options, and Referrer-Policy.
+
+7. Dependency Management → Regularly update libraries and frameworks. Use tools like Snyk, npm audit, or OWASP Dependency-Check to catch vulnerabilities.
+
+8. Rate Limiting & Brute Force Protection → Throttle login attempts. Use CAPTCHA for suspicious behavior. Monitor authentication endpoints.
+
+9. Logging & Monitoring → Log security-relevant events. Monitor for anomalies and alert on unauthorized access attempts.
+
+10. Regular Security Testing → Run vulnerability scans, perform static/dynamic code analysis, and schedule regular penetration tests.
+
+# Website Performance Best Practises
+1. Use HTTP/2 or HTTP/3 → These protocols allow multiplexing, header compression, and faster connections compared to HTTP/1.1.
+
+2. Optimize and Compress Images → Use modern formats (WebP, AVIF), responsive image sizes, and compression tools (like ImageOptim or Squoosh).
+
+3. Minimize JavaScript and CSS → Minify, tree-shake, and eliminate unused code. Split code using lazy loading and route-based chunks.
+
+4. Use a CDN (Content Delivery Network) → Serve static assets from edge locations close to users to reduce latency and offload your origin server.
+
+5. Enable Text Compression → Use gzip or Brotli for HTML, CSS, and JS to reduce transfer size and improve load times.
+
+6. Implement Caching Strategies → Use proper Cache-Control, ETag, and Service Workers to avoid re-downloading unchanged resources.
+
+7. Reduce Critical Rendering Path → Defer non-critical JS and CSS. Inline critical CSS. Load scripts asynchronously (async/defer).
+
+8. Avoid Layout Shifts (CLS) → Set width/height on images and embed elements. Avoid injecting content above existing elements post-load.
+
+9. Use Lazy Loading → Defer offscreen images, iframes, and heavy components until they are about to enter the viewport.
+
+10. Monitor & Measure with Real-User Metrics → Use tools like Lighthouse, WebPageTest, or RUM tools (e.g., New Relic, Datadog, or Google Core Web Vitals) to track actual performance and regressions.
+
+# Golang
+
+```golang
+package main
+
+import (
+	"fmt"
+	"regexp"
+	"strings"
+)
+
+func wordFrequency(text string) map[string]int {
+	// Normalize: lowercase and remove punctuation
+	text = strings.ToLower(text)
+	re := regexp.MustCompile(`[^\w\s]`) // remove punctuation
+	text = re.ReplaceAllString(text, "")
+
+	// Split into words
+	words := strings.Fields(text)
+
+	// Count frequency
+	freq := make(map[string]int)
+	for _, word := range words {
+		freq[word]++
+	}
+
+	return freq
+}
+
+func main() {
+	input := "Four, One two two three Three three four  four   four"
+	result := wordFrequency(input)
+	for word, count := range result {
+		fmt.Printf("%s => %d\n", word, count)
+	}
+}
+
+```
+
+# Tools (Rate yourself 1 to 5)
+
+Git 5
+Redis 3
+JetBrains 5
+Linux 3
+AWS 3
+EC2 3
+Lambda 3
+RDS 3
+Cloudwatch 3
+S3 3
+Unit testing 5
+Kanban boards 5
+
+
+
