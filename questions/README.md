@@ -161,7 +161,7 @@ main();
 
 # Realtime chat
 
-WIP
+http://128.199.121.185:3000 or check out the code in `/client` and `/server` folder
 
 # VueJS
 
